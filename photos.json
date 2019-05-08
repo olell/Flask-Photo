@@ -1,0 +1,10 @@
+{
+    "admin": "admin",
+    "password": "admin",
+    "password_crypted": false,
+    "header": "Flask Photos",
+    "content": {
+        "albums": [
+        ]
+    }
+}
