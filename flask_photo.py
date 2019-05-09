@@ -4,14 +4,27 @@ from flask import session
 from flask import redirect
 from flask import request
 from flask import render_template as flask_render_template
+from werkzeug.utils import secure_filename
 
+import os
 from functools import wraps
 import json
 from argon2 import PasswordHasher
+import random
+import string
 
 view = Blueprint("flask_photo", "flask_photo")
 
 config = None
+
+##
+#    HELPER METHODS
+##
+
+def randomString(stringLength=10):
+    """Generate a random string of fixed length """
+    letters = string.hexdigits
+    return ''.join(random.choice(letters) for i in range(stringLength))
 
 ##
 #    CONFIG STUFF
@@ -86,7 +99,7 @@ def admin_view():
                 if album_name is not None:
                     album = {
                         "name": album_name,
-                        "id": str(hash(album_name)),
+                        "id": randomString(16),
                         "description": "New Album",
                         "photos": []
                     }
@@ -95,7 +108,7 @@ def admin_view():
 
         return redirect(url_for("flask_photo.admin_view"))
 
-@view.route("/admin_album/<album_id>")
+@view.route("/admin_album/<album_id>", methods=["GET", "POST"])
 @requires_login
 def admin_album_view(album_id):
     album = None
@@ -105,7 +118,36 @@ def admin_album_view(album_id):
     if album is None:
         return "error, album not found..."
 
-    return render_template("album_admin.jinja", album=album)
+    if request.method == "GET":
+        return render_template("album_admin.jinja", album=album)
+    else:
+        action = request.form.get("action", None)
+        if action is not None:
+            if action == "update_album_info":
+                new_name = request.form.get("name", None)
+                new_desc = request.form.get("description", None)
+                album["name"] = new_name
+                album["description"] = new_desc
+                write_config()
+            if action == "add_photo":
+                file = request.files.get('file', None)
+                description = request.form.get("desc", None)
+                if file is not None and file.filename:
+                    iid = randomString(16)
+                    filename = secure_filename(file.filename)
+                    ext = filename.split(".")[-1]
+                    path = os.path.join("static/uploads/", iid + "." + ext)
+                    file.save(path)
+
+                    album["photos"].append({
+                        "name": filename,
+                        "description": description,
+                        "id": iid,
+                        "url": path
+                    })
+                    write_config()
+
+        return redirect(url_for("flask_photo.admin_album_view", album_id=album_id))
 
 @view.route("/")
 def index():

@@ -9,12 +9,37 @@
     <link rel="stylesheet" type="text/css" media="screen" href="album_admin.css" />
 </head>
 <body>
-    
+    <h1> Album {{ album.name }} </h1>
     <div class="update-albums-infos">
+        <h2> Update Information </h2>
         <form method="post">
-            <input type="text" name="name" value="{{ album.name }}"/>
+            <input type="hidden" name="action" value="update_album_info"/>
+            <label for="name">Name:</label>
+            <input type="text" name="name" value="{{ album.name }}"/><br/>
+            <label for="description">Description:</label>
+            <input type="text" name="description" value="{{ album.description }}"/><br/>
             <input type="submit" value="Update."/>
         </form>
+    </div>
+
+    <div class="add-photo">
+        <h2> Add Photo </h2>
+        <form method=post enctype=multipart/form-data>
+            <input type="hidden" name="action" value="add_photo"/>
+            <label for="desc">Description:</label>
+            <input type="text" name="desc" required/>
+            <label for="file">Upload photo:</label>
+            <input type="file" name="file" accept="image/*" required><br/>
+            <input type="submit" value="Upload">
+        </form>
+    </div>
+
+    <div class="photos">
+        <ul>
+        {% for photo in album.photos %}
+            <li> <a href="/{{ photo.url }}">{{ photo.name }}</a></li>
+        {% endfor %}
+        </ul>
     </div>
 
 </body>
