@@ -59,7 +59,7 @@ def render_template(*args, **kwargs):
 @view.route("/login/<redir>", methods=["GET", "POST"])
 def login_view(redir):
     if request.method == "GET":
-        return render_template("login.jinja")
+        return render_template("login.html")
     else:
         username = request.form.get("username", None)
         password = request.form.get("password", None)
@@ -89,7 +89,7 @@ def requires_login(endpoint):
 @requires_login
 def admin_view():
     if request.method == "GET":
-        return render_template("admin.jinja")
+        return render_template("admin.html")
     else:
         action = request.form.get("action", None)
         if action is not None:
@@ -119,7 +119,7 @@ def admin_album_view(album_id):
         return "error, album not found..."
 
     if request.method == "GET":
-        return render_template("album_admin.jinja", album=album)
+        return render_template("album_admin.html", album=album)
     else:
         action = request.form.get("action", None)
         if action is not None:
