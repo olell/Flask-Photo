@@ -1,10 +1,29 @@
 {
     "admin": "admin",
-    "password": "admin",
-    "password_crypted": false,
+    "password": "$argon2id$v=19$m=102400,t=2,p=8$+8rRrfQNOZk86wp0lV6RGw$6Gmpzl3Z3gbvFeultqTifw",
+    "password_crypted": true,
     "header": "Flask Photos",
     "content": {
         "albums": [
+            {
+                "name": "test",
+                "id": "09e05bdbBAA07a5B",
+                "description": "New Album",
+                "photos": [
+                    {
+                        "name": "Abstract-4.jpg",
+                        "description": "testfilm",
+                        "id": "5d38364DEb10E48D",
+                        "url": "static/uploads/5d38364DEb10E48D.jpg"
+                    }
+                ]
+            },
+            {
+                "name": "Steinsplitter",
+                "id": "BAad54Bc4cD626C0",
+                "description": "New Album",
+                "photos": []
+            }
         ]
     }
 }
