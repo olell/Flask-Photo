@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{ conf.header }} - Admin {{ album.name }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="/static/main.css" />
+</head>
+<body>
+ <div class="main-container">
+    <h1> Album {{ album.name }} </h1>
+    <div class="update-albums-infos">
+        <h2> Update Information </h2>
+        <form method="post">
+            <input class="spaced" type="hidden" name="action" value="update_album_info"/>
+            <label class="spaced" for="name">Name:</label>
+            <input class="spaced" type="text" name="name" value="{{ album.name }}"/><br/>
+            <label class="spaced" for="description">Description:</label>
+            <input class="spaced" type="text" name="description" value="{{ album.description }}"/><br/>
+            <input class="spaced" type="submit" value="Update."/>
+        </form>
+    </div>
+
+    <div class="add-photo">
+        <h2> Add Photo </h2>
+        <form method=post enctype=multipart/form-data>
+            <input class="spaced" type="hidden" name="action" value="add_photo"/>
+            <label class="spaced" for="desc">Description:</label>
+            <input class="spaced" type="text" name="desc" required/>
+            <label class="spaced" for="file">Upload photo:</label>
+            <input class="spaced" type="file" name="file" required><br/>
+            <input class="spaced" type="submit" value="Upload">
+        </form>
+    </div>
+
+    <div class="photos">
+        <ul>
+        {% for photo in album.photos %}
+            <li> <a href="/{{ photo.url }}">{{ photo.name }}</a></li>
+        {% endfor %}
+        </ul>
+    </div>
+    </div>
+</body>
+</html>
+

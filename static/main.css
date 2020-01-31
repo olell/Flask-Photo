@@ -1,0 +1,27 @@
+.main-container {
+    background-color: #F2F2F2;
+    box-shadow: 4px 4px 10px #BABABA;
+    color: black;
+    margin: auto;
+    margin-top: 20px;
+    width: 750px;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.update-albums-infos {
+    padding: 20px;
+}
+
+.add-photo {
+    padding: 20px;
+}
+
+.spaced {
+    margin: 5px;
+}

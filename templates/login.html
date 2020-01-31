@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{ conf.header }} - Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="/static/main.css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="main-container">
+        <h1> Please login to administrate {{ conf.header }}'s gallery: </h1>
+        <form method="post">
+
+            <label class="spaced" for="username">Username</label>
+            <input class="spaced" type="text" name="username" required />
+            <br>
+            <label class="spaced" for="password">Password</label>
+            <input class="spaced" type="password" name="password" required />
+            <br>
+            <input type="submit" value="login" />
+
+        </form>
+    </div>
+</body>
+
+</html>
